@@ -1,2 +1,3 @@
-# OSETCoreToBidAdapter
-OSETCoreToBidAdapter
+# OSETCoreToYQAdapter
+OSETCoreToYQAdapter
+
