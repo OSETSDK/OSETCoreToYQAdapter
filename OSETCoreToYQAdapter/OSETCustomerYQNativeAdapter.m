@@ -158,38 +158,38 @@
 - (void)OSETNativeAdRendererDetailViewClosed:(OSETNativeAdRenderer *)renderer{
     
 }
-/**
- 广告曝光回调
-
- */
-- (void)OSETNativeDataAdViewWillExpose:(OSETNativeDataAdView *)nativeDataAdView{
-    self.baseModel.type = 6;
-    if (self.successBlock) {
-        self.successBlock(self.baseModel);
-    }
-}
-/**
- 广告点击回调
-
- */
-- (void)OSETNativeDataAdViewDidClick:(OSETNativeDataAdView *)nativeDataAdView{
-    self.baseModel.type = 3;
-    if (self.successBlock) {
-        self.successBlock(self.baseModel);
-    }
-}
-
-/**
- 广告关闭回调
-
- */
-- (void)OSETNativeDataAdViewDidClose:(OSETNativeDataAdView *)nativeDataAdView{
-    self.baseModel.type =5;
-    if (self.successBlock) {
-        self.successBlock(self.baseModel);
-    }
-}
-
+///**
+// 广告曝光回调
+//
+// */
+//- (void)OSETNativeDataAdViewWillExpose:(OSETNativeDataAdView *)nativeDataAdView{
+//    self.baseModel.type = 6;
+//    if (self.successBlock) {
+//        self.successBlock(self.baseModel);
+//    }
+//}
+///**
+// 广告点击回调
+//
+// */
+//- (void)OSETNativeDataAdViewDidClick:(OSETNativeDataAdView *)nativeDataAdView{
+//    self.baseModel.type = 3;
+//    if (self.successBlock) {
+//        self.successBlock(self.baseModel);
+//    }
+//}
+//
+///**
+// 广告关闭回调
+//
+// */
+//- (void)OSETNativeDataAdViewDidClose:(OSETNativeDataAdView *)nativeDataAdView{
+//    self.baseModel.type =5;
+//    if (self.successBlock) {
+//        self.successBlock(self.baseModel);
+//    }
+//}
+//
 /**
  广告详情页关闭回调
  */
