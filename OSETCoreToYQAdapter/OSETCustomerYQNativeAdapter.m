@@ -190,12 +190,12 @@
 //    }
 //}
 //
-/**
- 广告详情页关闭回调
- */
-- (void)OSETNativeDataAdDetailViewClosed:(OSETNativeDataAdView *)nativeDataAdView{
-    
-}
+///**
+// 广告详情页关闭回调
+// */
+//- (void)OSETNativeDataAdDetailViewClosed:(OSETNativeDataAdView *)nativeDataAdView{
+//    
+//}
 /// 原生广告绑定视图和注册
 - (void)registerAdViewForBindImage:(UIImageView *)view adData:(SFFeedAdData *)adData clickableViews:(NSArray *)views{
     [self.adRenderer registerContainerView:view withDataObject:adData.data];
