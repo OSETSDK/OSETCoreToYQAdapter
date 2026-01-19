@@ -91,8 +91,10 @@
             }
             feedData.iconUrl = adData.appIconUrl;
             feedData.adType = self.baseModel.adv_id;
-            if(adData.buttonText &&  adData.buttonText.length > 0){
+            if(adData.buttonText && adData.buttonText.length > 0){
                 feedData.buttonText = adData.buttonText;
+            }else{
+                feedData.buttonText = @"查看详情";
             }
             [tmpArray addObject:feedData];
         }
