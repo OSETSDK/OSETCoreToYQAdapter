@@ -55,9 +55,7 @@
 {
     M_Log(@"奇点广告回调：%s",__func__);
 }
-
-/// 信息流加载成功
-- (void)nativeDataAdLoadSuccessWithNative:(id)nativeDataAd nativeExpressViews:(NSArray<OSETNativeDataAdObject *> * _Nullable)nativeDataObjects{
+- (void)nativeDataAdLoadSuccessWithNative:(id)nativeDataAd nativeDataObjects:(NSArray<OSETNativeDataAdObject *> * _Nullable)nativeDataObjects{
     NSMutableArray *tmpArray = [NSMutableArray array];
     for (OSETNativeDataAdObject * adData in nativeDataObjects) {
         if (adData != nil) {
