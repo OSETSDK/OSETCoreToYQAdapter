@@ -39,7 +39,7 @@
             [self.naticeDataAd loadAdData];
         }
         
-    } else { 
+    } else {
         NSLog(@"自定义json字符串解析有误 error = %@",err);
         self.baseModel.type = 2;
         self.baseModel.error = [NSError errorWithDomain:@"自定义json字符串解析有误" code:409 userInfo:nil];
@@ -183,6 +183,20 @@
 
 - (void)deallocAllProperty{
     [super deallocAllProperty];
+    if(self.viewsArray){
+        [self.viewsArray removeAllObjects];
+    }
+    if(self.nativeAd){
+        self.nativeAd.delegate = nil;
+        self.nativeAd.viewController = nil;
+        [self.nativeAd.currentArray removeAllObjects];
+        self.nativeAd = nil;
+    }
+    if(self.naticeDataAd){
+        self.naticeDataAd.delegate = nil;
+        self.naticeDataAd.viewController = nil;
+        self.naticeDataAd = nil;
+    }
     [self.adRenderer unregisterDataObject];
 }
 
