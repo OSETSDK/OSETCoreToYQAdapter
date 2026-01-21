@@ -68,6 +68,7 @@
             feedData.adID = adData.hash;
             feedData.logoUrl =adData.adIconUrl;
             feedData.adOriginName = @"adSet";
+            feedData.adType = 999;
             if (adData.imageList.count > 0) {
                 NSString *imageUrl = adData.imageList.firstObject[@"url"];
                 if (imageUrl.length > 0) {
@@ -84,7 +85,6 @@
                 [imageView sf_setImageWithUrl:feedData.imageUrl];
                 feedData.mediaView = imageView;
             }
-            feedData.adType = self.baseModel.adv_id;
             if(adData.buttonText && adData.buttonText.length > 0){
                 feedData.buttonText = adData.buttonText;
             }else{
