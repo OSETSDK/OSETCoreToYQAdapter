@@ -67,7 +67,10 @@
             feedData.adContent = adData.desc;
             feedData.adTitle =  adData.title;
             feedData.adID = adData.hash;
-            feedData.adLogoIcon = [self getLogoImage];
+            UIImage * logo =[self getLogoImage];
+            if(logo){
+                feedData.adLogoIcon = [self getLogoImage];
+            }
             feedData.logoUrl =adData.adIconUrl;
             if (adData.imageList.count > 0) {
                 NSString *imageUrl = adData.imageList.firstObject[@"url"];
