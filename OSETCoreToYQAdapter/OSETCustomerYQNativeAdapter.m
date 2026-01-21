@@ -6,7 +6,6 @@
 //
 
 #import "OSETCustomerYQNativeAdapter.h"
-#import "UIImage+OSETDownload.h"
 #define kScreen_width [UIScreen mainScreen].bounds.size.width
 #define kScreen_height [UIScreen mainScreen].bounds.size.height
 
