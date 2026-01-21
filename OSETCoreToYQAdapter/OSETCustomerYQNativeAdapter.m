@@ -66,11 +66,8 @@
             feedData.adContent = adData.desc;
             feedData.adTitle =  adData.title;
             feedData.adID = adData.hash;
-            UIImage * logo =[self getLogoImage];
-            if(logo){
-                feedData.adLogoIcon = [self getLogoImage];
-            }
             feedData.logoUrl =adData.adIconUrl;
+            feedData.adOriginName = @"adSet";
             if (adData.imageList.count > 0) {
                 NSString *imageUrl = adData.imageList.firstObject[@"url"];
                 if (imageUrl.length > 0) {
@@ -281,32 +278,5 @@
         [view removeFromSuperview];
     }
 }
--(UIImage *)getLogoImage{
-    NSBundle *bundle;
-    // 首先尝试从mainBundle中获取
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"OSETSDK" ofType:@"bundle"];
-    if (bundlePath) {
-        bundle = [NSBundle bundleWithPath:bundlePath];
-    }
-    // 如果mainBundle中没有，尝试从当前类所在的bundle中获取
-    if (!bundle) {
-        NSBundle *classBundle = [NSBundle bundleForClass:[self class]];
-        bundlePath = [classBundle pathForResource:@"OSETSDK" ofType:@"bundle"];
-        if (bundlePath) {
-            bundle = [NSBundle bundleWithPath:bundlePath];
-        }
-    }
-    UIImage *image = nil;
-    // 如果仍然没有找到，报错
-    if (!bundle) {
-   //NSLog(@"请检查OSETSDK.bundle是否导入");
-    }
-    
-    NSString *path = [bundle pathForResource:[NSString stringWithFormat:@"OSETSDK_GrayLogo"] ofType:@"png"];
-    if (path) {
-        image = [UIImage imageWithContentsOfFile:path];
-    }
-    return image;
-    
-}
+
 @end
