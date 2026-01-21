@@ -6,7 +6,7 @@
 //
 
 #import "OSETCustomerYQNativeAdapter.h"
-
+#import "UIImage+OSETDownload.h"
 #define kScreen_width [UIScreen mainScreen].bounds.size.width
 #define kScreen_height [UIScreen mainScreen].bounds.size.height
 
@@ -40,7 +40,7 @@
             [self.naticeDataAd loadAdData];
         }
         
-    } else {
+    } else { 
         NSLog(@"自定义json字符串解析有误 error = %@",err);
         self.baseModel.type = 2;
         self.baseModel.error = [NSError errorWithDomain:@"自定义json字符串解析有误" code:409 userInfo:nil];
@@ -67,12 +67,7 @@
             feedData.adContent = adData.desc;
             feedData.adTitle =  adData.title;
             feedData.adID = adData.hash;
-//            [self loadImageFromURL:adData.adIconUrl completion:^(UIImage *image, NSError *error) {
-//                if(image ){
-//                    feedData.adLogoIcon = image;
-//                }
-//            }];
-//            feedData.adLogoIcon = [self downloadImageSyncWithURL:adData.adIconUrl error:nil];
+            feedData.adLogoIcon = [self getLogoImage];
             feedData.logoUrl =adData.adIconUrl;
             if (adData.imageList.count > 0) {
                 NSString *imageUrl = adData.imageList.firstObject[@"url"];
@@ -86,8 +81,10 @@
                 feedData.mediaView = self.adRenderer.mediaView;
             }else{
                 feedData.isVideoAd = NO;
+                UIImageView * imageView = [[UIImageView alloc]init];
+                [imageView sf_setImageWithUrl:feedData.imageUrl];
+                feedData.mediaView = imageView;
             }
-            feedData.iconUrl = adData.appIconUrl;
             feedData.adType = self.baseModel.adv_id;
             if(adData.buttonText && adData.buttonText.length > 0){
                 feedData.buttonText = adData.buttonText;
@@ -109,6 +106,7 @@
         }
     }
 }
+
 /// 加载失败
 /// @param nativeDataAd 信息流实例
 /// @param error 错误信息
@@ -156,44 +154,7 @@
 - (void)OSETNativeAdRendererDetailViewClosed:(OSETNativeAdRenderer *)renderer{
     
 }
-///**
-// 广告曝光回调
-//
-// */
-//- (void)OSETNativeDataAdViewWillExpose:(OSETNativeDataAdView *)nativeDataAdView{
-//    self.baseModel.type = 6;
-//    if (self.successBlock) {
-//        self.successBlock(self.baseModel);
-//    }
-//}
-///**
-// 广告点击回调
-//
-// */
-//- (void)OSETNativeDataAdViewDidClick:(OSETNativeDataAdView *)nativeDataAdView{
-//    self.baseModel.type = 3;
-//    if (self.successBlock) {
-//        self.successBlock(self.baseModel);
-//    }
-//}
-//
-///**
-// 广告关闭回调
-//
-// */
-//- (void)OSETNativeDataAdViewDidClose:(OSETNativeDataAdView *)nativeDataAdView{
-//    self.baseModel.type =5;
-//    if (self.successBlock) {
-//        self.successBlock(self.baseModel);
-//    }
-//}
-//
-///**
-// 广告详情页关闭回调
-// */
-//- (void)OSETNativeDataAdDetailViewClosed:(OSETNativeDataAdView *)nativeDataAdView{
-//    
-//}
+
 /// 原生广告绑定视图和注册
 - (void)registerAdViewForBindImage:(UIImageView *)view adData:(SFFeedAdData *)adData clickableViews:(NSArray *)views{
     [self.adRenderer registerContainerView:view withDataObject:adData.data];
@@ -292,7 +253,7 @@
 //    }
 }
 - (void)nativeExpressAdFailedToLoad:(nonnull id)nativeExpressAd error:(nonnull NSError *)error {
-    NSLog(@"自定义转接器-奇点广告回调：%s \n error = %@",__func__, error);
+//    NSLog(@"自定义转接器-奇点广告回调：%s \n error = %@",__func__, error);
     self.baseModel.type = 2;
     self.baseModel.error = error;
     if (self.successBlock) {
@@ -317,5 +278,33 @@
         UIView * view = (UIView *)nativeExpressView;
         [view removeFromSuperview];
     }
+}
+-(UIImage *)getLogoImage{
+    NSBundle *bundle;
+    // 首先尝试从mainBundle中获取
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"OSETSDK" ofType:@"bundle"];
+    if (bundlePath) {
+        bundle = [NSBundle bundleWithPath:bundlePath];
+    }
+    // 如果mainBundle中没有，尝试从当前类所在的bundle中获取
+    if (!bundle) {
+        NSBundle *classBundle = [NSBundle bundleForClass:[self class]];
+        bundlePath = [classBundle pathForResource:@"OSETSDK" ofType:@"bundle"];
+        if (bundlePath) {
+            bundle = [NSBundle bundleWithPath:bundlePath];
+        }
+    }
+    UIImage *image = nil;
+    // 如果仍然没有找到，报错
+    if (!bundle) {
+   //NSLog(@"请检查OSETSDK.bundle是否导入");
+    }
+    
+    NSString *path = [bundle pathForResource:[NSString stringWithFormat:@"OSETSDK_GrayLogo"] ofType:@"png"];
+    if (path) {
+        image = [UIImage imageWithContentsOfFile:path];
+    }
+    return image;
+    
 }
 @end

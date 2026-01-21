@@ -67,13 +67,13 @@
 - (void)bannerDidReceiveSuccess:(id)bannerView slotId:(NSString *)slotId{
     //返回的banner高度可能会与初始化传入的高度 不完全一样 所以可以动态获取一下高度比较安全
     if([bannerView isKindOfClass:[UIView class]]){
+        self.parentView = bannerView;
         UIView * banner = bannerView;
         banner.frame = CGRectMake(0,0, banner.frame.size.width, banner.frame.size.height);
     }
     NSLog(@"自定义转接器-奇点广告回调：%s",__func__);
     if([bannerView isKindOfClass:[OSETBaseView class]]){
         OSETBaseView * bv = bannerView;
-        NSLog(@"eCPM = %zd",[bv eCPM]);
         if (self.baseModel.adType == SFSDKBidAD) {
             self.baseModel.bidfloor = bv.eCPM;
         }
