@@ -66,16 +66,13 @@
             feedData.adContent = adData.desc;
             feedData.adTitle =  adData.title;
             feedData.adID = adData.hash;
-            feedData.logoUrl =adData.adIconUrl;
-            feedData.adOriginName = @"adSet";
-            feedData.adType = 999;
+            feedData.data = adData;
             if (adData.imageList.count > 0) {
                 NSString *imageUrl = adData.imageList.firstObject[@"url"];
                 if (imageUrl.length > 0) {
                     feedData.imageUrl =  imageUrl;
                 }
             }
-            feedData.data = adData;
             if (adData.isVideoAd) {
                 feedData.isVideoAd = YES;
                 feedData.mediaView = self.adRenderer.mediaView;
@@ -85,6 +82,8 @@
                 [imageView sf_setImageWithUrl:feedData.imageUrl];
                 feedData.mediaView = imageView;
             }
+            feedData.adOriginName = @"adSet";
+            feedData.adType = 999;
             if(adData.buttonText && adData.buttonText.length > 0){
                 feedData.buttonText = adData.buttonText;
             }else{
@@ -197,7 +196,9 @@
         self.naticeDataAd.viewController = nil;
         self.naticeDataAd = nil;
     }
-    [self.adRenderer unregisterDataObject];
+    if(self.adRenderer){
+        [self.adRenderer unregisterDataObject];
+    }
 }
 
 - (void)renderViewWithViewArray:(NSArray *)viewArray{
