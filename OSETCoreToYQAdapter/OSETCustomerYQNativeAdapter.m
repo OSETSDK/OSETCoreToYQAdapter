@@ -67,10 +67,12 @@
             feedData.adTitle =  adData.title;
             feedData.adID = adData.hash;
             feedData.data = adData;
+            feedData.isRenderImage = NO;
             if (adData.imageList.count > 0) {
                 NSString *imageUrl = adData.imageList.firstObject[@"url"];
                 if (imageUrl.length > 0) {
                     feedData.imageUrl =  imageUrl;
+                    feedData.mediaUrlList = @[imageUrl];
                 }
             }
             if (adData.isVideoAd) {
@@ -161,6 +163,19 @@
 
 /// 新版注册视图，必须子类去实现
 - (void)registerAdForView:(UIView<SFNativeAdRenderProtocol> *)view adData:(SFFeedAdData *)adData{
+    
+    view.clipsToBounds = YES;
+    if (adData.isRenderImage) {
+        view.contentMode = UIViewContentModeScaleAspectFill;
+        if (adData.bgImage) {
+            view.mainImageView.image = adData.bgImage;
+        } else {
+            [view.mainImageView sf_showImageWithUrl:adData.imageUrl successBlock:^(UIImage *img) {
+                adData.bgImage = img;
+            } failBlock:nil];
+        }
+    }
+    
     [self.adRenderer registerContainerView:view withDataObject:adData.data];
     [self.adRenderer registerClickableViews:view.clickViewArray];
 }
@@ -293,5 +308,4 @@
         [view removeFromSuperview];
     }
 }
-
 @end
