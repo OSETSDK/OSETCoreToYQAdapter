@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "OSETCoreToYQAdapter"
-  s.version      = "6.6.4.9"
+  s.version      = "6.6.5.0"
   s.summary      = "AdSet广告对接YQ适配器"
   s.description  = <<-DESC
                     OSETSDK 是一个专业的广告聚合SDK，提供高效的广告展示和收益优化功能。
@@ -30,6 +30,6 @@ Pod::Spec.new do |s|
   
   # ================= 第三方依赖库 =================
  
-  s.dependency 'OSETCoreSDK','>=6.6.4.9'
+  s.dependency 'OSETCoreSDK','>=6.6.5.3'
   s.dependency 'MediatomiOS'
 end
